@@ -22,35 +22,74 @@
 
 	class cliente{
 
-		private $dniCliente;
-		private $nombre;
-		private $direccion;
-		private $email;
-		private $pwd;
+		public $dniCliente;
+		public $nombre;
+		public $direccion;
+		public $email;
+		public $pwd;
 
 		public function __construct(){
 
 		}
 
-		public function alta($link){
+		public function alta($mySQL){
+			if($mySQL->link->query("INSERT INTO `virtualmarket`.`clientes` (`dniCliente`, `nombre`, `direccion`, `email`, `pwd`) VALUES ('".$this->dniCliente."', '".$this->nombre."', '".$this->direccion."', '".$this->email."', '".$this->pwd."')")===TRUE){
+
+				return "t";
+			}else{
+				return "error";
+			}
+		}
+
+		public function baja($mySQL){
+			if($mySQL->link->query("DELETE FROM clientes WHERE `dniCliente`=".$this->dniCliente."")===TRUE){
+
+				return "t";
+			}else{
+				return "error";
+			}
+		}
+
+		public function consulta($mySQL){
+			$result = $mySQL->link->query("SELECT * FROM clientes WHERE `dniCliente`=".$this->dniCliente);
+
+			$array = array();
+			while ($row = $result->fetch_assoc()) {
+				foreach ($row as $key => $value) {
+					$array[$key]=$value;
+				}
+			}
+			return $array;
 			
 		}
 
-		public function baja($link){
-			
+		public function mod($mySQL){
+			if($mySQL->link->query("UPDATE clientes SET `nombre`='".$this->nombre."', `direccion`='".$this->direccion."', `email`='".$this->email."', `pwd`='".$this->pwd."' WHERE `dniCliente`=".$this->dniCliente)===TRUE){
+				return "t";
+
+			}else{
+				return "error";
+
+			}
 		}
 
-		public function mod($link){
-			
+		public function __get($propiedad){
+			return $this->$propiedad;
+		}
+		public function __set($propiedad, $value){
+			$this-$property = $value;
+		}
+	}
+
+	class listado{
+
+		public function __construct(){
+
 		}
 
-		public function consulta($link){
-			
-		}
-
-		public function __get($dniCliente){
-			if (property_exists(__CLASS__, $dniCliente))return $this->dniCliente;
-			return NULL;
+		public function lista($mySQL){
+			$result = $mySQL->link->query("SELECT * FROM `clientes`");
+			return $result;
 		}
 	}
 ?>
