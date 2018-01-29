@@ -34,7 +34,6 @@
 
 		public function alta($mySQL){
 			if($mySQL->link->query("INSERT INTO `virtualmarket`.`clientes` (`dniCliente`, `nombre`, `direccion`, `email`, `pwd`) VALUES ('".$this->dniCliente."', '".$this->nombre."', '".$this->direccion."', '".$this->email."', '".$this->pwd."')")===TRUE){
-
 				return "t";
 			}else{
 				return "error";
@@ -43,7 +42,6 @@
 
 		public function baja($mySQL){
 			if($mySQL->link->query("DELETE FROM clientes WHERE `dniCliente`=".$this->dniCliente."")===TRUE){
-
 				return "t";
 			}else{
 				return "error";

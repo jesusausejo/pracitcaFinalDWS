@@ -2,7 +2,7 @@
 include("modelo.php");
 include("vista.php");
 cabecera();
-if (isset($_POST['alta']) && isset($_POST['dni']) && isset($_POST['nom']) && isset($_POST['dir']) && isset($_POST['email']) && isset($_POST['pwd'])){
+if (isset($_POST['alta'])){
 	$action = "dio de alta";
 	$mySQL = new MySQL();
 
@@ -12,14 +12,23 @@ if (isset($_POST['alta']) && isset($_POST['dni']) && isset($_POST['nom']) && iss
 	$email = $_POST["email"];
 	$pwd = $_POST["pwd"];
 
+	$dni = htmlspecialchars($dni);
+	$nom = htmlspecialchars($nom);
+	$dir = htmlspecialchars($dir);
+	$email = htmlspecialchars($email);
+	$pwd = htmlspecialchars($pwd);
+
 	$cliente = new cliente();
 	$cliente->dniCliente = $dni;
 	$cliente->nombre = $nom;
 	$cliente->direccion = $dir;
 	$cliente->email = $email;
 	$cliente->pwd = $pwd;
-
-	$result = $cliente->alta($mySQL);
+	if($dni!=""){
+		$result = $cliente->alta($mySQL);
+	}else{
+		$result="error";
+	}
 
 	if($result=="t"){
 		exito($action);

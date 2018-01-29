@@ -11,6 +11,13 @@ if (isset($_POST['mod2'])){
 	$dir = $_POST["direccion"];
 	$email = $_POST["email"];
 	$pwd = $_POST["pwd"];
+
+	$dni = htmlspecialchars($dni);
+	$nom = htmlspecialchars($nom);
+	$dir = htmlspecialchars($dir);
+	$email = htmlspecialchars($email);
+	$pwd = htmlspecialchars($pwd);
+	
 	$cliente = new cliente();
 	$cliente->dniCliente = $dni;
 	$cliente->nombre = $nom;

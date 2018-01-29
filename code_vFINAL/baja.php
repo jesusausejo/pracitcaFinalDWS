@@ -7,8 +7,13 @@ if (isset($_POST['baja'])){
 	$mySQL = new MySQL();
 
 	$dni = $_POST["dni"];
+
+	
+	$dni = htmlspecialchars($dni);
 	$cliente = new cliente();
 	$cliente->dniCliente = $dni;
+
+
 
 	$result = $cliente->baja($mySQL);
 

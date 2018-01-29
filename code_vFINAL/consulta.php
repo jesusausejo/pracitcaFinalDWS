@@ -6,11 +6,22 @@ if (isset($_POST['con'])){
 	$mySQL = new MySQL();
 
 	$dni = $_POST["dni"];
+
+	$dni = htmlspecialchars($dni);
+	
 	$cliente = new cliente();
 	$cliente->dniCliente = $dni;
 
-	$result = $cliente->consulta($mySQL);
-	conVista($result);
+	if($dni!="" && is_numeric($dni)==true){
+		$result = $cliente->consulta($mySQL);
+		if($result=="error"){
+			error();
+		}else{
+			conVista($result);
+		}
+	}else{
+		error();
+	}
 }
 footer();
 ?>
